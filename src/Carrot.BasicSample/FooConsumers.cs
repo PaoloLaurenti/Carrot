@@ -33,4 +33,20 @@ namespace Carrot.BasicSample
                                  });
         }
     }
+
+
+    internal class FooConsumerArticle : Consumer<FooArticle>
+    {
+        public override Task ConsumeAsync(ConsumedMessage<FooArticle> message)
+        {
+            return Task.Factory
+                       .StartNew(() =>
+                       {
+                           Console.WriteLine("[{0}]received '{1}' by '{2}'",
+                                             message.ConsumerTag,
+                                             message.Headers.MessageId,
+                                             GetType().Name);
+                       });
+        }
+    }
 }
