@@ -16,7 +16,7 @@ namespace Carrot.Serialization
 
         public String Serialize(Object obj)
         {
-            return JsonConvert.SerializeObject(obj);
+            return JsonConvert.SerializeObject(obj, Settings);
         }
     }
 }

@@ -7,5 +7,8 @@ namespace Carrot.BasicSample
     public class Foo
     {
         public Int32 Bar { get; set; }
+        public Int32 BarFoo { get; set; }
+        public Boolean FooFoo { get; set; }
+
     }
 }

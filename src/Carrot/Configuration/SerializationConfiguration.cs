@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Carrot.Serialization;
 
 namespace Carrot.Configuration
@@ -36,6 +37,14 @@ namespace Carrot.Configuration
                 throw new ArgumentNullException(nameof(negotiator));
 
             _negotiator = negotiator;
+        }
+
+        public void ConfigureSerializer<T>(String contentType,  Action<T> configureOperation) where T : class, ISerializer
+        {
+            var mediaTypeHeaders = _negotiator.Negotiate(contentType);
+            var serializer = _serializers.First(x => mediaTypeHeaders.Any(mth => x.Key(mth))).Value;
+
+            configureOperation(serializer as T);
         }
 
         internal virtual ISerializer Create(String contentType)
